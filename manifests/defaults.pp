@@ -1,4 +1,4 @@
-class passenger::defaults {
+class puppet-passenger::defaults {
   $exec_path = [
         '/usr/local/bin',
         '/opt/local/bin',

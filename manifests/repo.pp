@@ -1,5 +1,5 @@
-class passenger::repo {
-  include passenger::defaults
+class puppet-passenger::repo {
+  include puppet-passenger::defaults
 
   Exec {
     path   => $defaults::exec_path,
