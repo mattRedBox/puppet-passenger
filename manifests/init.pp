@@ -37,6 +37,4 @@
 #
 class passenger {
   class {'repo':}
-  ->
-  class {'server':}
 }
