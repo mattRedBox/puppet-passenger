@@ -15,20 +15,20 @@ PassengerStatThrottleRate 120
 RackAutoDetect Off
 RailsAutoDetect Off
 
-Listen <%= puppet_port %>
+Listen <%= @puppet_port %>
 
-<VirtualHost *:<%= puppet_port %>>
+<VirtualHost *:<%= @puppet_port %>>
         SSLEngine on
         SSLProtocol -ALL +SSLv3 +TLSv1
         SSLCipherSuite ALL:!ADH:RC4+RSA:+HIGH:+MEDIUM:-LOW:-SSLv2:-EXP
 
-        SSLCertificateFile      <%= ssldir %>/certs/<%= hostname %>.pem
-        SSLCertificateKeyFile   <%= ssldir %>/private_keys/<%= hostname %>.pem
-        SSLCertificateChainFile <%= ssldir %>/ca/ca_crt.pem
-        SSLCACertificateFile    <%= ssldir %>/ca/ca_crt.pem
+        SSLCertificateFile      <%= @ssldir %>/certs/<%= @hostname %>.pem
+        SSLCertificateKeyFile   <%= @ssldir %>/private_keys/<%= @hostname %>.pem
+        SSLCertificateChainFile <%= @ssldir %>/ca/ca_crt.pem
+        SSLCACertificateFile    <%= @ssldir %>/ca/ca_crt.pem
         # If Apache complains about invalid signatures on the CRL, you can try disabling
         # CRL checking by commenting the next line, but this is not recommended.
-        SSLCARevocationFile     <%= ssldir %>/ca/ca_crl.pem
+        SSLCARevocationFile     <%= @ssldir %>/ca/ca_crl.pem
         SSLVerifyClient optional
         SSLVerifyDepth  1
         # The `ExportCertData` option is needed for agent certificate expiration warnings
@@ -41,9 +41,9 @@ Listen <%= puppet_port %>
         RequestHeader set X-Client-DN %{SSL_CLIENT_S_DN}e
         RequestHeader set X-Client-Verify %{SSL_CLIENT_VERIFY}e
 
-        DocumentRoot <%= rackdir %>/public/
+        DocumentRoot <%= @rackdir %>/public/
         RackBaseURI /
-        <Directory <%= rackdir %>/>
+        <Directory <%= @rackdir %>/>
                 Options None
                 AllowOverride None
                 Order allow,deny
