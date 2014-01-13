@@ -1,6 +1,6 @@
 class puppet-passenger::server {
   $puppet_port = '8140'
-  case $operatingsystem {
+  case $::operatingsystem {
     'centOS': {
       $apache_confdir = '/etc/httpd/httpd.conf'
       $puppet_confdir = '/etc/puppet'
@@ -9,12 +9,22 @@ class puppet-passenger::server {
       $rackdir = "$puppet_confdir/rack"
     }
   }
-
+  ->
+  service {'puppetmaster':
+    ensure => stopped,
+    enable => false,
+  }
+  ->
+  service {'httpd':
+    ensure => running,
+    enable => true,
+  }
+  ->
   file { "$apache_confdir/puppetmaster.conf":
     content => template('puppet-passenger/vhost.conf.erb'),
     owner   => 'root',
     group   => 'root',
-    mode    => '755',
+    ensure  => file,
     require => Package['httpd'],
     notify  => Service['httpd'],
   }
@@ -24,7 +34,6 @@ class puppet-passenger::server {
     ensure  => file,
     owner   => 'root',
     group   => 'root',
-    mode    => '755',
     require => Package['httpd'],
     notify  => Service['httpd'],
   }
@@ -32,15 +41,5 @@ class puppet-passenger::server {
   file { "$rackdir/public":
     ensure  => directory,
     mode    => '755',
-  }
-  ->
-  service {'httpd':
-    ensure => running,
-    enable => true,
-  }
-  ->
-  service {'puppetmaster':
-    ensure => stopped,
-    enable => false,
   }
 }
