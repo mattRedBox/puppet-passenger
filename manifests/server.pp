@@ -9,7 +9,7 @@ class puppet-passenger::server {
       $rackdir = "$puppet_confdir/rack"
     }
   }
-  ->
+  
   file { "$rackdir":
     ensure => directory,
   }
@@ -35,7 +35,7 @@ class puppet-passenger::server {
     require => Package['httpd'],
     notify  => Service['httpd'],
   }
-  ->
+  
   service {'puppetmaster':
     ensure => stopped,
     enable => false,
