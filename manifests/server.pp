@@ -19,6 +19,14 @@ class puppet-passenger::server {
     notify  => Service['httpd'],
   }
   ->
+  file { "$rackdir":
+    ensure => directory,
+  }
+  ->
+  file { "$rackdir/public":
+    ensure  => directory,
+  }
+  ->
   file { "$rackdir/config.ru":
     content => template('puppet-passenger/config.ru.erb'),
     ensure  => file,
@@ -26,11 +34,6 @@ class puppet-passenger::server {
     group   => 'root',
     require => Package['httpd'],
     notify  => Service['httpd'],
-  }
-  ->
-  file { "$rackdir/public":
-    ensure  => directory,
-    mode    => '755',
   }
   ->
   service {'puppetmaster':
