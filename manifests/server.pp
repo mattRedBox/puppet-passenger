@@ -11,7 +11,7 @@ class puppet-passenger::server {
   }
 
   file { "$apache_confdir/puppetmaster.conf":
-    content => template(puppet-passenger/vhost.conf.erb),
+    content => template('puppet-passenger/vhost.conf.erb'),
     owner   => 'root',
     group   => 'root',
     mode    => '755',
@@ -19,8 +19,8 @@ class puppet-passenger::server {
     notify  => Service['httpd'],
   }
   ->
-  file { "$rackdir":
-    content => template(puppet-passenger/vhost.conf.erb),
+  file { "$rackdir/config.ru":
+    content => template('puppet-passenger/config.ru.erb'),
     ensure  => file,
     owner   => 'root',
     group   => 'root',
@@ -31,8 +31,6 @@ class puppet-passenger::server {
   ->
   file { "$rackdir/public":
     ensure  => directory,
-    owner   => 'root',
-    group   => 'root',
     mode    => '755',
   }
   ->
