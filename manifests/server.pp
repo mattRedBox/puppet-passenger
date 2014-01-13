@@ -35,7 +35,12 @@ class puppet-passenger::server {
     require => Package['httpd'],
     notify  => Service['httpd'],
   }
-  
+  -> 
+  file { "$apache_confdir/headers.conf":
+    ensure => file,
+    source => 'puppet:///modules/puppet-passenger/headers.conf',
+  }
+  ->
   service {'puppetmaster':
     ensure => stopped,
     enable => false,
