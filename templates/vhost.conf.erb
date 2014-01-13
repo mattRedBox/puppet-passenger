@@ -22,8 +22,8 @@ Listen <%= @puppet_port %>
         SSLProtocol -ALL +SSLv3 +TLSv1
         SSLCipherSuite ALL:!ADH:RC4+RSA:+HIGH:+MEDIUM:-LOW:-SSLv2:-EXP
 
-        SSLCertificateFile      <%= @ssldir %>/certs/<%= @hostname %>.pem
-        SSLCertificateKeyFile   <%= @ssldir %>/private_keys/<%= @hostname %>.pem
+        SSLCertificateFile      <%= @ssldir %>/certs/<%= @fqdn %>.pem
+        SSLCertificateKeyFile   <%= @ssldir %>/private_keys/<%= @fqdn %>.pem
         SSLCertificateChainFile <%= @ssldir %>/ca/ca_crt.pem
         SSLCACertificateFile    <%= @ssldir %>/ca/ca_crt.pem
         # If Apache complains about invalid signatures on the CRL, you can try disabling
