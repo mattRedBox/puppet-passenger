@@ -10,16 +10,6 @@ class puppet-passenger::server {
     }
   }
   ->
-  service {'puppetmaster':
-    ensure => stopped,
-    enable => false,
-  }
-  ->
-  service {'httpd':
-    ensure => running,
-    enable => true,
-  }
-  ->
   file { "$apache_confdir/puppetmaster.conf":
     content => template('puppet-passenger/vhost.conf.erb'),
     owner   => 'root',
@@ -41,5 +31,15 @@ class puppet-passenger::server {
   file { "$rackdir/public":
     ensure  => directory,
     mode    => '755',
+  }
+  ->
+  service {'puppetmaster':
+    ensure => stopped,
+    enable => false,
+  }
+  ->
+  service {'httpd':
+    ensure => running,
+    enable => true,
   }
 }
