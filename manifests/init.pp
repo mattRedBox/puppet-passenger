@@ -37,4 +37,6 @@
 #
 class puppet-passenger {
   class {'repo':}
+  ->
+  class {'server':}
 }
