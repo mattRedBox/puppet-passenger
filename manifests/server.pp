@@ -2,7 +2,7 @@ class puppet-passenger::server {
   $puppet_port = '8140'
   case $::operatingsystem {
     'centOS': {
-      $apache_confdir = '/etc/httpd/httpd.conf'
+      $apache_confdir = '/etc/httpd/conf.d'
       $puppet_confdir = '/etc/puppet'
       $vardir = '/var/lib/puppet'
       $ssldir = "$vardir/ssl"
