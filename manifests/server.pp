@@ -11,18 +11,22 @@ class puppet-passenger::server {
   }
   
   file { "$rackdir":
-    ensure => directory,
+    ensure  => directory,
+    owner   => 'puppet',
+    group   => 'puppet',
   }
   ->
   file { "$rackdir/public":
-    ensure  => directory,
+    ensure => directory,
+    owner  => 'puppet',
+    group  => 'puppet',
   }
   ->
   file { "$rackdir/config.ru":
     content => template('puppet-passenger/config.ru.erb'),
     ensure  => file,
-    owner   => 'root',
-    group   => 'root',
+    owner   => 'puppet',
+    group   => 'puppet',
     require => Package['httpd'],
     notify  => Service['httpd'],
   }
